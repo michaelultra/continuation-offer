@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow">
+<meta name="googlebot" content="noindex, nofollow">
+<title>Ultraspeaking · Continuation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0E1116; --bg-elev:#161B22; --bg-card:#1A2029;
+    --border:rgba(255,255,255,.08); --border-strong:rgba(255,255,255,.16);
+    --text:#F5F6F8; --text-muted:#A3ADBA; --text-dim:#7B8696;
+    --yellow:#FFD60A; --yellow-soft:#FFE876; --yellow-dim:rgba(255,214,10,.12);
+    --green:#4ADE80; --green-dim:rgba(74,222,128,.12);
+    --blue:#60A5FA;  --blue-dim:rgba(96,165,250,.12);
+    --amber:#FBBF24; --amber-dim:rgba(251,191,36,.12);
+    --display:'Bricolage Grotesque',system-ui,sans-serif;
+    --body:'Manrope',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{background:var(--bg);}
+  body{color:var(--text); font-family:var(--body); font-size:16px; line-height:1.65; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+  .glow{position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(620px circle at 12% -5%, rgba(255,214,10,.06), transparent 60%),
+      radial-gradient(680px circle at 92% 105%, rgba(74,222,128,.05), transparent 60%);}
+  .wrap{max-width:1080px; margin:0 auto; padding:28px 32px 96px; position:relative; z-index:1;}
+
+  h1,h2,h3,h4{font-family:var(--display); letter-spacing:-.02em; color:var(--text);}
+  h1{font-size:clamp(38px,5.6vw,68px); font-weight:800; line-height:1.02; letter-spacing:-.03em;}
+  h2{font-size:clamp(28px,3.4vw,40px); font-weight:700; line-height:1.1;}
+  .acc{color:var(--yellow);}
+
+  /* top bar */
+  .topbar{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:0 0 32px; flex-wrap:wrap;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:var(--display); font-weight:800; font-size:19px; color:var(--text);}
+  .brand .mark{width:15px; height:15px; background:var(--yellow); transform:rotate(45deg); border-radius:3px;}
+  .brand small{font-family:var(--body); font-weight:600; font-size:13px; color:var(--text-dim);}
+  .seg{display:inline-flex; background:var(--bg-elev); border:1px solid var(--border); border-radius:999px; padding:5px;}
+  .seg button{border:none; background:transparent; font-family:var(--display); font-weight:700; font-size:14px; color:var(--text-muted); padding:9px 20px; border-radius:999px; cursor:pointer; transition:.18s;}
+  .seg button.active{background:var(--yellow); color:#0E1116;}
+  .seg button:not(.active):hover{color:var(--text);}
+  .seg.sub button{padding:8px 16px; font-size:13px;}
+
+  .view{display:none;}
+  .view.active{display:block; animation:fade .35s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
+
+  .eyebrow{display:inline-block; font-family:var(--display); font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.18em; color:var(--yellow); border:1px solid rgba(255,214,10,.4); border-radius:999px; padding:7px 16px; margin-bottom:24px;}
+  .divider{width:64px; height:4px; background:var(--yellow); border-radius:4px; margin:0 0 26px;}
+  .label{font-family:var(--display); font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:var(--yellow); margin-bottom:14px;}
+
+  /* ---------- OFFER ---------- */
+  .hero{max-width:760px; padding:6px 0 0;}
+  .lead{font-size:clamp(17px,1.9vw,21px); color:var(--text-muted); line-height:1.55; margin-top:22px; max-width:64ch;}
+
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; font-family:var(--display); font-weight:700; font-size:16px; background:var(--yellow); color:#0E1116; border:none; border-radius:8px; padding:15px 28px; text-decoration:none; cursor:pointer; transition:.2s ease;}
+  .btn:hover{transform:translateY(-2px); background:var(--yellow-soft);}
+  .btn.ghost{background:transparent; border:1px solid var(--yellow); color:var(--yellow);}
+  .btn.ghost:hover{background:var(--yellow-dim); transform:translateY(-2px);}
+
+  .offercard{background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:clamp(24px,3vw,36px); margin-top:30px; display:grid; grid-template-columns:.85fr 1.15fr; gap:clamp(24px,3vw,44px);}
+  .newpill{display:inline-block; background:var(--yellow-dim); color:var(--yellow); font-family:var(--display); font-weight:700; font-size:13px; letter-spacing:.02em; border-radius:999px; padding:5px 14px;}
+  .price{display:flex; align-items:baseline; gap:12px; margin:18px 0 6px;}
+  .price .amt{font-family:var(--display); font-size:clamp(44px,6vw,60px); font-weight:800; letter-spacing:-.03em; line-height:1; color:var(--yellow);}
+  .price .per{font-size:15px; color:var(--text-dim); font-weight:600;}
+  .cmpnote{font-size:14.5px; color:var(--text-dim);}
+  .cta{display:flex; flex-direction:column; gap:11px; margin-top:26px;}
+
+  .incl .label{margin-bottom:16px;}
+  .flag{list-style:none;}
+  .flag li{display:flex; gap:14px; padding:14px 0; border-bottom:1px dashed var(--border);}
+  .flag li:last-child{border-bottom:none;}
+  .flag .arr{color:var(--yellow); font-weight:700; flex-shrink:0; font-size:18px; line-height:1.5;}
+  .flag .ft{font-size:15.5px; color:var(--text-muted); line-height:1.5;}
+  .flag .ft b{color:var(--text); font-weight:700;}
+
+  .cmp{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:32px;}
+  .ccard{position:relative; background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:26px 24px; display:flex; flex-direction:column; transition:.2s ease;}
+  .ccard:hover{transform:translateY(-2px); border-color:var(--border-strong);}
+  .ccard.feat{border-color:var(--yellow);}
+  .ctag{position:absolute; top:-12px; left:24px; background:var(--yellow); color:#0E1116; font-family:var(--display); font-weight:700; font-size:11px; letter-spacing:.06em; text-transform:uppercase; padding:5px 12px; border-radius:999px;}
+  .ccard h4{font-size:18px; font-weight:700; margin-bottom:6px;}
+  .cprice{font-family:var(--display); font-weight:800; font-size:30px; letter-spacing:-.02em; margin:6px 0 16px; color:var(--text);}
+  .ccard.feat .cprice{color:var(--yellow);}
+  .cprice small{font-size:14px; font-weight:600; color:var(--text-dim);}
+  .clist{list-style:none; display:flex; flex-direction:column; gap:9px; font-size:14px; color:var(--text-muted); flex:1;}
+  .clist li{display:flex; gap:9px;}
+  .clist li::before{content:'→'; color:var(--yellow); font-weight:700; flex-shrink:0;}
+  .cbest{margin-top:16px; padding-top:14px; border-top:1px solid var(--border); font-size:13.5px; color:var(--text);}
+  .cbest span{color:var(--text-dim);}
+
+  .closer{text-align:center; margin-top:48px;}
+  .closer .divider{margin-left:auto; margin-right:auto;}
+  .closer p{font-family:var(--display); font-weight:700; font-size:clamp(22px,2.6vw,32px); letter-spacing:-.02em; line-height:1.15; color:var(--text); max-width:22ch; margin:0 auto 24px;}
+
+  /* ---------- SCHEDULE ---------- */
+  .shead{max-width:760px;}
+  .shead p{font-size:17px; color:var(--text-muted); margin-top:14px; max-width:62ch;}
+  .cohortbar{margin:24px 0 8px;}
+  .stats{display:flex; flex-wrap:wrap; gap:14px; margin:20px 0 12px;}
+  .stat{background:var(--bg-elev); border:1px solid var(--border); border-radius:14px; padding:16px 20px; min-width:120px;}
+  .stat b{display:block; font-family:var(--display); font-size:26px; font-weight:800; letter-spacing:-.02em; color:var(--text);}
+  .stat b.acc{color:var(--yellow);}
+  .stat span{font-size:12.5px; color:var(--text-dim); font-weight:500;}
+  .legend{display:flex; gap:20px; flex-wrap:wrap; margin:16px 0 26px;}
+  .leg{display:flex; align-items:center; gap:9px; font-size:13.5px; font-weight:600; color:var(--text-muted);}
+  .leg .dot{width:11px; height:11px; border-radius:3px; transform:rotate(45deg);}
+
+  .weekblock{background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:22px 24px; margin-bottom:18px;}
+  .wkhead{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:18px;}
+  .wktag{background:var(--yellow-dim); color:var(--yellow); font-family:var(--display); font-weight:700; font-size:12px; letter-spacing:.08em; text-transform:uppercase; border-radius:999px; padding:4px 12px;}
+  .wkdate{font-family:var(--display); font-weight:700; font-size:18px; color:var(--text); letter-spacing:-.01em;}
+  .wknote{font-size:12.5px; font-weight:500; color:var(--text-dim);}
+  .daygrid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px;}
+  .daycol{display:flex; flex-direction:column; gap:10px;}
+  .dayhdr{font-family:var(--display); font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--text); padding-bottom:8px; border-bottom:1px solid var(--border); margin-bottom:2px;}
+  .dayhdr span{color:var(--text-dim); font-weight:500; letter-spacing:0; margin-left:6px; font-family:var(--body);}
+  .class{border-radius:12px; padding:11px 13px; border:1px solid;}
+  .class.fl1{background:var(--green-dim); border-color:rgba(74,222,128,.25);}
+  .class.fl2{background:var(--blue-dim);  border-color:rgba(96,165,250,.25);}
+  .class.prol1{background:var(--amber-dim); border-color:rgba(251,191,36,.25);}
+  .cname{font-size:13.5px; font-weight:600; color:var(--text); line-height:1.35;}
+  .cname b{font-family:var(--display); font-weight:800; font-size:12px; letter-spacing:.02em;}
+  .class.fl1 .cname b{color:var(--green);}
+  .class.fl2 .cname b{color:var(--blue);}
+  .class.prol1 .cname b{color:var(--amber);}
+  .ctime{font-size:11.5px; font-weight:600; color:var(--text-dim); margin-top:5px;}
+
+  .foot{margin-top:10px; font-size:12.5px; color:var(--text-dim); text-align:center;}
+
+  @media(max-width:860px){
+    .offercard{grid-template-columns:1fr;}
+    .cmp{grid-template-columns:1fr;}
+  }
+  @media(max-width:760px){
+    .daygrid{grid-template-columns:1fr;}
+    .wrap{padding:24px 20px 80px;}
+  }
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand"><span class="mark"></span>Ultraspeaking <small>· Continuation</small></div>
+    <div class="seg">
+      <button data-view="offer" class="active">The offer</button>
+      <button data-view="schedule">The schedule</button>
+    </div>
+  </div>
+
+  <!-- ============ VIEW 1: OFFER ============ -->
+  <section id="view-offer" class="view active">
+    <div class="hero">
+      <span class="eyebrow">After your cohort</span>
+      <h1>Keep practicing.<br><span class="acc">On your schedule.</span></h1>
+      <p class="lead">Keep going for one more quarter, and drop into any live module across all our cohorts, at the times that fit your week.</p>
+    </div>
+
+    <div class="offercard">
+      <div class="pricewrap">
+        <span class="newpill">New · 3-month pass</span>
+        <div class="price"><span class="amt">$750</span><span class="per">for 3 months</span></div>
+        <div class="cmpnote">or $2,000 for a single cohort; $2,200/year for a year</div>
+        <div class="cta">
+          <button class="btn" data-view="schedule">See everything you could attend &rarr;</button>
+          <button class="btn ghost">Claim your pass</button>
+        </div>
+      </div>
+      <div class="incl">
+        <div class="label">What's included</div>
+        <ul class="flag">
+          <li><span class="arr">&rarr;</span><span class="ft">Drop into <b>up to 15 live classes</b> over your three months.</span></li>
+          <li><span class="arr">&rarr;</span><span class="ft">Choose from <b>every module across all three live cohorts</b>: Fundamentals L1, Fundamentals L2, and Pro L1.</span></li>
+          <li><span class="arr">&rarr;</span><span class="ft"><b>Pick your times.</b> Sessions run from 4:00 AM to 4:30 PM PT, Tuesday through Thursday.</span></li>
+          <li><span class="arr">&rarr;</span><span class="ft"><b>The full live experience:</b> a coach in the room, breakout-room practice, and real-time feedback.</span></li>
+          <li><span class="arr">&rarr;</span><span class="ft">After-hours access, plus the <b>complete curriculum</b> to work through on your own.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cmp">
+      <div class="ccard">
+        <h4>Single cohort</h4>
+        <div class="cprice">$2,000</div>
+        <ul class="clist">
+          <li>One course, start to finish</li>
+          <li>4 to 5 weeks, fixed schedule</li>
+          <li>The full cohort experience</li>
+        </ul>
+        <div class="cbest"><span>Best for:</span> going deep on one course.</div>
+      </div>
+      <div class="ccard feat">
+        <span class="ctag">The idea</span>
+        <h4>3-month pass</h4>
+        <div class="cprice">$750</div>
+        <ul class="clist">
+          <li>Drop into any module, any course</li>
+          <li>About 15 classes over 3 months</li>
+          <li>Practice on your own schedule</li>
+        </ul>
+        <div class="cbest"><span>Best for:</span> maintaining your skills and practicing once per week.</div>
+      </div>
+      <div class="ccard">
+        <h4>Unlimited</h4>
+        <div class="cprice">$2,200<small> /yr</small></div>
+        <ul class="clist">
+          <li>Everything, all year long</li>
+          <li>Priority enrollment</li>
+          <li>Private coaching included</li>
+        </ul>
+        <div class="cbest"><span>Best for:</span> going all in.</div>
+      </div>
+    </div>
+
+    <div class="closer">
+      <div class="divider"></div>
+      <p>Keep the muscle strong with weekly practice on your own schedule.</p>
+      <button class="btn" data-view="schedule">See the schedule &rarr;</button>
+    </div>
+  </section>
+
+  <!-- ============ VIEW 2: SCHEDULE ============ -->
+  <section id="view-schedule" class="view">
+    <div class="shead">
+      <div class="divider"></div>
+      <h2>Everything you could attend</h2>
+      <p>Three live courses run Tuesday through Thursday. With your pass, you can drop into any class in any of them. Pick a cohort to see the full menu, week by week.</p>
+    </div>
+
+    <div class="cohortbar">
+      <div class="seg sub">
+        <button data-cohort="jun" class="active">June 16 &ndash; Jul 16</button>
+        <button data-cohort="aug">Aug 4 &ndash; Sep 3</button>
+      </div>
+    </div>
+
+    <div class="stats" id="stats"></div>
+
+    <div class="legend">
+      <span class="leg"><span class="dot" style="background:var(--green)"></span>FL1 · Fundamentals L1</span>
+      <span class="leg"><span class="dot" style="background:var(--blue)"></span>FL2 · Fundamentals L2</span>
+      <span class="leg"><span class="dot" style="background:var(--amber)"></span>PL1 · Pro L1</span>
+    </div>
+
+    <div id="weeks"></div>
+
+    <p class="foot">All times Pacific. Fundamentals L1 runs 5 weeks; Fundamentals L2 and Pro L1 run 4 weeks and wrap a week earlier. Prototype for internal review.</p>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  var CURR={
+    fl1:{tag:'FL1', cls:'fl1', weeks:5, curr:[
+      ['Projecting confidence under pressure','End rambling forever','Recover from stumbles with poise'],
+      ['Never sound monotone again','Speaking with emotion','Let energy lead and content follow'],
+      ['Pausing strategically','Giving meaningful responses','Accessing clarity'],
+      ['Reliving moments','Finding meaning','Infinite storytelling'],
+      ['Staying present','Active listening','Enjoying speaking']
+    ]},
+    fl2:{tag:'FL2', cls:'fl2', weeks:4, curr:[
+      ['Make it interesting','Stay curious','Pause for impact'],
+      ['Find what matters','Make it important','Emphasizing with energy'],
+      ['Embracing quirks and uniqueness','Make your stories vivid','Telling micro-stories'],
+      ['Turn off your “public speaking” voice','Make your speaking more genuine and fun','']
+    ]},
+    prol1:{tag:'PL1', cls:'prol1', weeks:4, curr:[
+      ['Summarize with Prompts','Illustrate with Analogies','Pause for Clarity'],
+      ['Listen for What Matters Most','Practice Empathy','Be Direct & Empathetic'],
+      ['Argue the Ideal','Practice Empathy','Speak with Conviction'],
+      ['Use Time Constraints','Illustrate Your Point','Create Simple Slides']
+    ]}
+  };
+  var ORDER=['fl1','fl2','prol1'];
+  var COHORTS={
+    jun:{ weeks:[
+        {range:'June 16 – 18',     d:['Jun 16','Jun 17','Jun 18']},
+        {range:'June 23 – 25',     d:['Jun 23','Jun 24','Jun 25']},
+        {range:'June 30 – July 2', d:['Jun 30','Jul 1','Jul 2']},
+        {range:'July 7 – 9',       d:['Jul 7','Jul 8','Jul 9']},
+        {range:'July 14 – 16',     d:['Jul 14','Jul 15','Jul 16']}
+      ],
+      times:{fl1:'4:00 AM · 9:00 AM · 10:30 AM PT', fl2:'7:30 AM PT', prol1:'4:30 PM PT'} },
+    aug:{ weeks:[
+        {range:'August 4 – 6',      d:['Aug 4','Aug 5','Aug 6']},
+        {range:'August 11 – 13',    d:['Aug 11','Aug 12','Aug 13']},
+        {range:'August 18 – 20',    d:['Aug 18','Aug 19','Aug 20']},
+        {range:'August 25 – 27',    d:['Aug 25','Aug 26','Aug 27']},
+        {range:'September 1 – 3',    d:['Sep 1','Sep 2','Sep 3']}
+      ],
+      times:{fl1:'4:00 AM · 7:30 AM · 9:30 AM PT', fl2:'9:30 AM PT', prol1:'7:30 AM · 4:30 PM PT'} }
+  };
+  var DAYS=['Tue','Wed','Thu'];
+  var weeksEl=document.getElementById('weeks');
+  var statsEl=document.getElementById('stats');
+
+  function slots(s){ return s.split('·').length; }
+
+  function render(cid){
+    var co=COHORTS[cid];
+    var modules=0;
+    ORDER.forEach(function(k){ var c=CURR[k]; for(var w=0;w<c.weeks;w++){ c.curr[w].forEach(function(n){ if(n) modules++; }); } });
+    var perDay=0; ORDER.forEach(function(k){ perDay+=slots(co.times[k]); });
+    statsEl.innerHTML =
+      '<div class="stat"><b class="acc">'+modules+'</b><span>unique modules to drop into</span></div>'+
+      '<div class="stat"><b>3</b><span>live courses running at once</span></div>'+
+      '<div class="stat"><b>up to '+perDay+'</b><span>sessions a day</span></div>'+
+      '<div class="stat"><b>Tue&ndash;Thu</b><span>5 weeks · pick your times</span></div>';
+
+    var html='';
+    co.weeks.forEach(function(wk,wi){
+      var cols='';
+      for(var di=0; di<3; di++){
+        var cards='';
+        ORDER.forEach(function(k){
+          var c=CURR[k];
+          if(wi>=c.weeks) return;
+          var nm=c.curr[wi][di];
+          if(!nm) return;
+          cards += '<div class="class '+c.cls+'"><div class="cname">'+nm+' <b>('+c.tag+')</b></div>'
+                +'<div class="ctime">'+co.times[k]+'</div></div>';
+        });
+        cols += '<div class="daycol"><div class="dayhdr">'+DAYS[di]+' <span>'+wk.d[di]+'</span></div>'+cards+'</div>';
+      }
+      var note = wi>=4 ? '<span class="wknote">FL1 only · FL2 &amp; PL1 wrapped last week</span>' : '';
+      html += '<div class="weekblock"><div class="wkhead"><span class="wktag">Week '+(wi+1)+'</span><span class="wkdate">'+wk.range+'</span>'+note+'</div>'
+            +'<div class="daygrid">'+cols+'</div></div>';
+    });
+    weeksEl.innerHTML=html;
+  }
+
+  render('jun');
+
+  document.querySelectorAll('[data-view]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var v=btn.getAttribute('data-view');
+      document.querySelectorAll('.view').forEach(function(s){ s.classList.toggle('active', s.id==='view-'+v); });
+      document.querySelectorAll('.seg button[data-view]').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-view')===v); });
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+
+  document.querySelectorAll('[data-cohort]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var c=btn.getAttribute('data-cohort');
+      document.querySelectorAll('[data-cohort]').forEach(function(b){ b.classList.toggle('active', b===btn); });
+      render(c);
+    });
+  });
+})();
+</script>
+</body>
+</html>
